@@ -1,38 +1,163 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+* {
+  margin: 0;
+  font-family: 'Alata', sans-serif;
+}
+.app__navbar{
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-bottom: 1px solid rgb(199, 199, 199) ;
+  
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app__leftNavbar {
+  display: flex;
+  
+  padding: 10px;
+  padding-left: 15px;
+
+}
+.fb__logo {
+  
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  padding-right: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app__SearchBar{
+  padding-left: 10px;
+  border-radius: 20px;
+  background-color: #F0F2F5;
+  outline: none;
+  border: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app__centerNavbar{
+  
+}
+
+.app__rightNavbar{
+  display: flex;
+  justify-content: space-evenly;
+  margin-right: 30px;
+}
+
+.homeIcon{
+  color: #1877F2 !important;
+  padding-right: 80px;
+  font-size: 35px !important;
+}
+.homeIcon:hover{
+  cursor: pointer;
+}
+.grayIcon{
+  color: #a3a3a3 !important;
+  padding-right: 80px;
+  font-size: 35px !important;
+
+}
+
+.grayIcon:hover{
+  cursor: pointer;
+  color: #1877F2 !important;
+}
+.app__navbarAvatar{
+  height: 30px !important;
+  width: 30px !important;
+}
+
+/* Here ends Navbar */
+
+.app__mainBody{
+  height: 90vh;
+  overflow: scroll;
+  background-color: #F0F2F5;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app__postCard{
+  padding: 5px;
+  width: 500px;
+  margin: 10px;
+}
+
+.createPostModal{
+  background-color: white !important;
+  height: 500px !important;
+  width: 500px !important;
+  position: absolute;
+   left: 42%;
+   top: 30%; 
+   margin-left: -150px;
+   margin-top: -150px;
+   outline: none !important;
+   padding: 20px;
+}
+
+.createPostModalHeader{
+  height: 60px;
+  border-bottom: 1px solid lightgray;
+}
+.createPostModalHeader__Text{
+    padding-top:10px;
+    margin-left: 40% !important;
+    font-family: 'Alata', sans-serif !important; 
+    font-size: larger !important;   
+}
+.createPostModalHeader__Input{
+  outline: none;
+  border: none;
+  width: 100%;
+  background-color: transparent;
+  font-size: larger;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.app__postButton{
+  font-style: inherit !important;
+  background-color: #1877F2 !important;
+  width: 100%;
+  margin-top: 10px !important;
+  color: white !important;
+}
+
+.cardTop{
+  display: flex;
+}
+
+.app__SearchBar{
+  font-size: large;
+  margin-left: 10px;
+  width: 100%;
+}
+
+.signInForm{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 20px;
+  background-color: white !important;
+  position: absolute;
+  left: 50%;
+  top: 40%; 
+  margin-left: -150px;
+  margin-top: -150px;
+  outline: none;
+   
 }
 
-.App-link {
-  color: #61dafb;
+.signInForm__image{
+  height: 50px;
+  padding: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.signInForm__button{
+  margin-top: 15px !important;
+  background-color: #1877F2 !important;
+  color: white !important;
 }
