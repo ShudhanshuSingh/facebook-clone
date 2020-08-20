@@ -1,31 +1,88 @@
-@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
 
-
-.post__card{
-    padding: 5px;
+.post__card {
+  padding: 5px;
   width: 500px;
   margin: 10px;
-  
 }
 
-.post__cardTop{
+.post__cardTop {
+  display: flex;
+  align-items: center;
+}
+
+.post__cardUsername {
+  margin-left: 10px !important;
+  font-family: "Alata", sans-serif !important;
+  font-weight: bold !important;
+}
+.post__cardMessage {
+  font-family: "Alata", sans-serif !important;
+  padding: 10px !important;
+}
+
+.post__img {
+  padding: 0;
+  margin-left: -17px;
+  width: 500px;
+}
+
+.postComment__box {
+  display: flex;
+}
+
+.post_button {
+  flex: 0.2;
+}
+.post__input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  border-top: 1px solid lightgray;
+  outline: none;
+}
+
+.viewComment__box {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: white !important;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  margin-left: -150px;
+  margin-top: -150px;
+  outline: none;
+  max-width: 500px;
+}
+
+.head__commentBox{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: #575757;
+    border-bottom: 1px solid #979797;
+}
+
+.postComment__icon{
+    
+}
+
+.closeIcon:hover{
+    /* margin-top: -10px; */
+    color:  #1877F2;
+}
+.comments{
+    padding: 20px;
+}
+.post__button{
     display: flex;
     align-items: center;
 }
-
-.post__cardUsername{
-    margin-left: 10px !important;
-    font-family: 'Alata', sans-serif !important;
-    font-weight: bold !important;
-    
-}
-.post__cardMessage{
-    font-family: 'Alata', sans-serif !important;
-    padding: 10px !important;
-}
-
-.post__img{
-    padding: 0;
-    margin-left: -17px;
-    width: 500px;
+.viewComment__button{
+    margin-bottom:15px ;
+    outline:none;
+    border: none;
+    font-size: small;
+    color: #1877F2;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { db, auth,storage } from "./firebase";
+import { db, auth, storage } from "./firebase";
 import firebase from "firebase";
 import {
   TextField,
@@ -24,6 +24,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Post from "./Post";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 // https://lh3.googleusercontent.com/proxy/h_cboCjIyt0F0ji7uoZU__4EykjpNKVPPv2wjcKlo4LNLxHUsykMccQCw25CRjNutrRHvnAeyKlF9okUWLDU8rIL-9gAnoJFUkNbfQkBImFawpMX2CQRw3RhYPG0XV2m2mQF3NbBDUGQoE1R
 // https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png
@@ -38,8 +39,9 @@ function App() {
   const [open, setOpen] = React.useState(false);
   const [signupOpen, setSignupOpen] = React.useState(false);
   const [signinOpen, setSigninOpen] = React.useState(false);
-  const [image,setImage] = React.useState(null)
-  const [progress,setProgress] = React.useState(0)
+  const [image, setImage] = React.useState(null);
+  const [progress, setProgress] = React.useState(0);
+  
 
   const useStyles = makeStyles((theme) => ({
     modal: {
@@ -66,46 +68,47 @@ function App() {
 
   const createPost = (event) => {
     event.preventDefault();
-    if(image!=null){
-      const uploadTask = storage.ref(`images/${image.name}`).put(image)
+    if (image != null) {
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot)=>{
-        const progress = Math.round((snapshot.bytesTransferred)/(snapshot.totalBytes)*100)
-        setProgress(progress)
-
-      },
-      (error) => {
-        console.log(error)
-        alert(error.message)
-      },
-      ()=>{
-        storage.ref("images").child(image.name).getDownloadURL().then(url=>{
-          db.collection("posts").add({
-            username: user.displayName,
-            message: input,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            imageUrl:url,
-          });
-        })
-        setProgress(0)
-        setImage(null)
-      }  
-    )
-    }
-    else{
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(progress);
+        },
+        (error) => {
+          console.log(error);
+          alert(error.message);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              db.collection("posts").add({
+                username: user.displayName,
+                message: input,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                imageUrl: url,
+              });
+            });
+          setProgress(0);
+          setImage(null);
+        }
+      );
+    } else {
       db.collection("posts").add({
         username: user.displayName,
         message: input,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        imageUrl:'',
+        imageUrl: "",
       });
-
     }
-    
 
-    
     setOpen(false);
     // setPost({
     //   username: user.displayName,
@@ -116,7 +119,7 @@ function App() {
   };
 
   React.useEffect(() => {
-    db.collection("posts").onSnapshot((snapshot) => {
+    db.collection("posts").orderBy("timestamp","desc").onSnapshot((snapshot) => {
       setPost(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -165,14 +168,15 @@ function App() {
     });
   }, [user]);
 
-  const handleChange =(e)=>{
-    if(e.target.files[0]){
-      setImage(e.target.files[0])
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    } else {
+      setImage(null);
     }
-    else{
-      setImage(null)
-    }
-  }
+  };
+
+  
 
   return (
     <div className="App">
@@ -219,13 +223,25 @@ function App() {
           </IconButton>
         </div>
         <div className="app__rightNavbar">
-          <Avatar
-            className="app__navbarAvatar"
-            alt={user}
-            src="/static/images/avatar/1.jpg"
-          />
           {user ? (
-            <Button onClick={logOut}>Logout</Button>
+            <div className="user__info">
+              <Tooltip className="tooltip" title={user.displayName}>
+              <Avatar
+                className="app__navbarAvatar"
+                alt={user.displayName}
+                src="/static/images/avatar/1.jpg"
+              /></Tooltip>
+
+              <p className="display__username">{user.displayName}</p>
+            </div>
+          ) : (
+            <p></p>
+          )}
+
+          {user ? (
+            <Button className="logout__button" onClick={logOut}>
+              <ExitToAppIcon /> Logout
+            </Button>
           ) : (
             <div>
               <Button onClick={() => setSigninOpen(true)}>Login</Button>
@@ -316,12 +332,13 @@ function App() {
               <CardContent>
                 <div className="cardTop">
                   <Avatar alt="Shudh" src="" />
-                  <input
+                  <button
                     className="app__SearchBar"
                     onClick={handleOpen}
                     placeholder="Whats on your Mind?"
-                    type="text"
-                  />
+                  >
+                    Whats on your Mind, {user.displayName}?
+                  </button>
                   <Modal
                     open={open}
                     onClose={handleClose}
@@ -346,8 +363,8 @@ function App() {
                           className="createPostModalHeader__Input"
                           type="text"
                         />
-                        <input type="file" onChange={handleChange}></input>
-                        <progress value={progress} max="100" />
+                        <input className="fileupload__button" type="file" onChange={handleChange}></input>
+                        <progress className="progress__bar" value={progress} max="100" />
 
                         <Button
                           disabled={!input}
@@ -368,7 +385,14 @@ function App() {
           )}
 
           {posts.map(({ id, post }) => (
-            <Post key={id} username={post.username} message={post.message} imageUrl={post.imageUrl}/>
+            <Post
+              key={id}
+              postId={id}
+              username={post.username}
+              message={post.message}
+              imageUrl={post.imageUrl}
+              user={user}
+            />
           ))}
         </div>
         <div className="app__bodyright"></div>

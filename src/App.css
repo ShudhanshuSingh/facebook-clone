@@ -37,7 +37,11 @@
 }
 
 .app__centerNavbar{
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: -100px;
+  width: 600px;
 }
 
 .app__rightNavbar{
@@ -48,7 +52,7 @@
 
 .homeIcon{
   color: #1877F2 !important;
-  padding-right: 80px;
+  /* padding-right: 80px; */
   font-size: 35px !important;
 }
 .homeIcon:hover{
@@ -56,7 +60,7 @@
 }
 .grayIcon{
   color: #a3a3a3 !important;
-  padding-right: 80px;
+  /* padding-right: 80px; */
   font-size: 35px !important;
 
 }
@@ -135,8 +139,11 @@
   font-size: large;
   margin-left: 10px;
   width: 100%;
+  color: #919191;
 }
-
+.app__SearchBar:hover{
+  cursor: pointer;
+}
 .signInForm{
   display: flex;
   flex-direction: column;
@@ -160,4 +167,42 @@
   margin-top: 15px !important;
   background-color: #1877F2 !important;
   color: white !important;
+}
+
+.logout__button{
+  color: #1877F2 !important;
+}
+
+.user__info{
+  display: flex;
+  justify-content: space-evenly;
+}
+.display__username{
+  margin: 5px;
+  color: #696969;
+}
+
+.createPostModal{
+  display: flex;
+  flex-direction: column;
+}
+.progress__bar{
+  height: 50px;
+  width: 100%;
+}
+
+.fileupload__button{
+  margin-top: auto;
+  border: none;
+  background-color: gray;
+  color: #1877F2;
+}
+
+.app__navbarAvatar:hover{
+  cursor: pointer;
+}
+
+.tooltip{
+  font-size: medium !important;
+  color: #1877F2 !important;
 }
