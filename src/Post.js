@@ -106,7 +106,9 @@ function Post({ username, message, imageUrl, postId, user }) {
           </Fade>
         </Modal>
 
-        <form className="postComment__box">
+        {
+          user?(
+            <form className="postComment__box">
           <input
             className="post__input"
             type="text"
@@ -123,6 +125,12 @@ function Post({ username, message, imageUrl, postId, user }) {
             <ChatBubbleOutlineOutlinedIcon className="postComment__icon" /> <p>Post</p> 
           </button>
         </form>
+          ):(
+            <p></p>
+          )
+        }
+
+        
       </Card>
     </div>
   );
